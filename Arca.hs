@@ -14,25 +14,28 @@ null' x
 
 --pembatas
 
-take' n (x:xs)
-  | n <= 0 = []
-  | n > 0 = take n (x:xs)
+take' x = x
 
 --pembatas
 
 drop' n (x:xs)
-   | n == 0 = []
+   | n == 0 = xs
    | n < 0 = (x:xs)
-   | n > 0 = drop (n-1) xs
+   | n > 0 = drop' (n-1) xs
 
 
 --pembatas
 
-fst' x = x
+fst' (a,b)
+  | a == 0 = a
+  | a > 0 = a
+  | a < 0 = a
 
 --pembatas
 
-snd' x = x
+snd' (a,b)
+  | a >= 0 = b
+  | a < 0 =b
 
 --pembatas
 
@@ -92,7 +95,8 @@ head' x = x
 
 --pembatas
 
-length' x = x
+length' [] = 0
+length' (x:xs) = 1 + (length xs)
 
 --pembatas
 
