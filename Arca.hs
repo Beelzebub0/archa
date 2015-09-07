@@ -9,16 +9,22 @@ import Data.List
 -- 1.a
 
 null' x
-  | x >= 0 = True
-  | x < 0 = False
+  | x == [] = True
+  | otherwise = False
 
 --pembatas
 
-take' x = x
+take' n (x:xs)
+  | n <= 0 = []
+  | n > 0 = take n (x:xs)
 
 --pembatas
 
-drop' x = x
+drop' n (x:xs)
+   | n == 0 = []
+   | n < 0 = (x:xs)
+   | n > 0 = drop (n-1) xs
+
 
 --pembatas
 
