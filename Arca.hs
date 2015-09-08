@@ -115,19 +115,24 @@ last' (x:xs) = last' (xs)
 
 --pembatas
 
-tail' x = x
+tail' (x:xs) = (xs)
 
 --pembatas
 
-init' x = x
+init' [x,y,z] = [x,y]
+init' (x:xs) = x :init' (xs)
 
 --pembatas
 
-max' x = x
+max' a b
+  | a > b = a
+  | a < b = b
 
 --pembatas
 
-min' x = x
+min' a b
+  | a < b = a
+  | a > b = b
 
 --pembatas
 
@@ -139,7 +144,7 @@ intersperse' x = x
 
 --pembatas
 
-intercalate' x = x
+intercalate' _ [(x:xs)] = (x:xs)
 
 --pembatas
 
