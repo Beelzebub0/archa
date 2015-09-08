@@ -16,7 +16,7 @@ null' x
 
 take' _ [] = []
 take' 0 (x:xs) = []
-take' n (x:xs) = x + take' (n-1) xs
+take' n (x:xs) = x : take' (n-1) xs
 
 --pembatas
 
@@ -93,12 +93,12 @@ notElem' x = x
 
 --pembatas
 
-head' x = x
+head' (x:xs) = x
 
 --pembatas
 
 length' [] = 0
-length' (x:xs) = 1 + (length xs)
+length' (x:xs) = 1 + (length' xs)
 
 --pembatas
 
@@ -106,7 +106,8 @@ reverse' x = x
 
 --pembatas
 
-last' x = x
+last' [x,y] = y
+last' (x:xs) = last' (xs)
 
 --pembatas
 
@@ -138,11 +139,15 @@ intercalate' x = x
 
 --pembatas
 
-and' x = x
+and' [] = True
+and' [True] = True
+and' [False] = False
 
 --pembatas
 
-or' x = x
+or' [] = False
+or' [True] = True
+or' [False] = False
 
 --pembatas
 
@@ -150,12 +155,23 @@ zip3' x = x
 
 --pembatas
 
-sum' x = x
+sum' [] = 0
+sum' (x:xs) = x + sum' (xs)
+
+-- sum' [1,2,3]
+-- 1 + sum' [2,3] = 6
+-- 2 + sum' [3] = 5
+-- 3 + sum' [] = 3
 
 --pembatas
 
-product' x = x
+product' [] = 1
+product' (x:xs) = x * product' (xs)
 
+-- product' [2,3,4]
+-- 2 * product' [3,4] = 24
+-- 3 * product' [4] = 12
+-- 4 * product' [] = 4
 --pembatas
 
 words' x = x
