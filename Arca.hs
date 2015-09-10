@@ -49,7 +49,19 @@ filter' x = x
 
 --pembatas
 
-delete' x = x
+delete' n (x:xs)
+  | n == 0 = (x:xs)
+  | n < 0 = (x:xs)
+  | n == x = (xs)
+  | n > x = x:delete' n (xs)
+
+-- delete' 3 [2,4,5,3,1]
+-- 2:delete' 3 [4,5,3,1] = [2,4,5,1]
+-- 4:delete' 3 [5,3,1] = 4:[5,1]
+-- 5:delete' 3 [3,1] = 5:[1]
+
+-- delete' 2 [1,2,3]
+-- 1:delete' 2 [2,3] = [1,3]
 
 --pembatas
 
@@ -106,7 +118,12 @@ length' (x:xs) = 1 + (length' xs)
 
 --pembatas
 
-reverse' x = x
+-- i haven't finished yet :(
+
+reverse' [] = []
+reverse' [a,b,c] = [c,b,a]
+reverse' [x] = [x]
+reverse' (x:xs) = reverse' (xs)
 
 --pembatas
 
@@ -136,11 +153,11 @@ min' a b
 
 --pembatas
 
-concat' x = x
+concat' [(x:xs),(y:ys)] = (x:xs) ++ (y:ys)
 
 --pembatas
 
-intersperse' x = x
+interseperse' x = x
 
 --pembatas
 
@@ -188,6 +205,7 @@ words' x = x
 --pembatas
 
 lines' x = x
+
 
 --pembatas
 
