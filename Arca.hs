@@ -41,7 +41,14 @@ snd' (a,b)
 
 --pembatas
 
-map' x = x
+map' (n) [] = []
+map' (n) [x] = [(n) x]
+map' (n) (x:xs) = map' (n) [x] ++ map' (n) (xs)
+
+-- map' (+2) [1,2,3,4]
+-- map' (+2) [1] ++ map' (+2) [2,3,4] = [3,4,5,6]
+-- map' (+2) [2] ++ map' (+2) [3,4] = [4,5,6]
+-- map' (+2) [3] ++ map' (+2) [4] = [5,6]
 
 --pembatas
 
@@ -50,22 +57,19 @@ filter' x = x
 --pembatas
 
 delete' n (x:xs)
-  | n == 0 = (x:xs)
-  | n < 0 = (x:xs)
   | n == x = (xs)
-  | n > x = x:delete' n (xs)
+  | n /= x = x:delete' n (xs)
 
--- delete' 3 [2,4,5,3,1]
--- 2:delete' 3 [4,5,3,1] = [2,4,5,1]
--- 4:delete' 3 [5,3,1] = 4:[5,1]
--- 5:delete' 3 [3,1] = 5:[1]
-
--- delete' 2 [1,2,3]
--- 1:delete' 2 [2,3] = [1,3]
+-- delete' 3 (1,2,3,4)
+-- 1:delete' 3 [2,3,4]
+-- 2:delete' 3 [3,4] = [2,4]
 
 --pembatas
 
-deleteAll' x = x
+deleteAll' n [] = []
+deleteAll' n (x:xs)
+  | n == x = deleteAll' n xs
+  | n /= x = x:deleteAll' n (xs)
 
 --pembatas
 
@@ -77,7 +81,9 @@ foldl1' x = x
 
 --pembatas
 
-zip' x = x
+zip' [_] [] = []
+zip' [a] [b] = [(a,b)]
+zip' (x:xs) (y:ys) = (x,y) : zip' (xs) (ys)
 
 --pembatas
 
@@ -85,7 +91,8 @@ zipWith' x = x
 
 --pembatas
 
-nth' x = x
+nth' (x:xs) 0 = x
+nth' (x:xs) n = nth' (xs) (n-1)
 
 --pembatas
 
@@ -118,12 +125,10 @@ length' (x:xs) = 1 + (length' xs)
 
 --pembatas
 
--- i haven't finished yet :(
-
 reverse' [] = []
 reverse' [a,b,c] = [c,b,a]
 reverse' [x] = [x]
-reverse' (x:xs) = reverse' (xs)
+reverse' (x:xs) = reverse' xs ++ [x]
 
 --pembatas
 
@@ -157,7 +162,7 @@ concat' [(x:xs),(y:ys)] = (x:xs) ++ (y:ys)
 
 --pembatas
 
-interseperse' x = x
+intersperse' x = x
 
 --pembatas
 
@@ -177,7 +182,11 @@ or' [False] = False
 
 --pembatas
 
-zip3' x = x
+zip3' [] [] [] = []
+zip3' [] [] [_] = []
+zip3' [] [_] [_] = []
+zip3' [a,b] [c,d] [e,f] = [(a,c,e),(b,d,f)]
+zip3' (x:xs) (y:ys) (z:zs) = (x,y,z) :zip3' (xs) (ys) (zs)
 
 --pembatas
 
