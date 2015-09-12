@@ -54,7 +54,7 @@ map' (n) (x:xs) = map' (n) [x] ++ map' (n) (xs)
 
 filter' x = x
 
---pembatas
+--pembatas 
 
 delete' n (x:xs)
   | n == x = (xs)
