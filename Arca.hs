@@ -90,7 +90,12 @@ zip' (x:xs) (y:ys) = (x,y) : zip' (xs) (ys)
 
 --pembatas
 
-zipWith' x = x
+zipWith' (m) [] [] = []
+zipWith' (m) (x:xs) [] = []
+zipWith' (m) [] (x:xs) = []
+zipWith' (m) [a] [b] = [(m) a b]
+zipWith' (m) (x:xs) (y:ys) = (m) x y :zipWith' (m) (xs) (ys)
+
 
 --pembatas
 
@@ -215,11 +220,6 @@ product' (x:xs) = x * product' (xs)
 words' "" = []
 words' (x:xs) = [(x:xs)]
 
--- words' "asdf"
--- "a" ++ words "sdf"
--- "s" ++ words "df"
--- "d" ++ words "f"
-
 --pembatas
 
 lines' x = x
@@ -238,11 +238,18 @@ unwords' (x:y) = x ++ "" ++ unwords' y
 
 --pembatas
 
-takeWhile' x = x
+takeWhile' (n) [] = []
+takeWhile' (n) (x:xs)
+  | (n x) == True = x : takeWhile' (n) xs
+  | (n x) == False = takeWhile' (n) xs
+
 
 --pembatas
 
-dropWhile' x = x
+dropWhile' (n) [] = []
+dropWhile' (n) (x:xs)
+  | (n x) == True = dropWhile' (n) xs
+  | (n x) == False = (x:xs)
 
 --pembatas
 
@@ -250,19 +257,33 @@ concatMap' x = x
 
 --pembatas
 
-all' x = x
+all' (n) [] = True
+all' (n) (x:xs)
+  | (n x) == False = False
+  | (n x) == True = all' (n) xs
 
 --pembatas
 
-any' x = x
+any' (n) [] = False
+any' (n) (x:xs)
+  | (n x) == True = True
+  | (n x) == False = any' (n) xs
 
 --pembatas
 
-insert' x = x
+insert' n [] = [n]
+insert' n (x:xs)
+  | x > n = n : (x:xs)
+  | x < n = x : insert' n xs
 
 --pembatas
 
-zipWith3' x = x
+zipWith3' (m) [] [] [] = []
+zipWith3' (m) (x:xs) [] [] = []
+zipWith3' (m) [] (x:xs) [] = []
+zipWith3' (m) [] [] (x:xs) = []
+zipWith3' (m) [a] [b] [c] = [(m) a b c]
+zipWith3' (m) (x:xs) (y:ys) (z:zs) = (m) x y z : zipWith3' (m) (xs) (ys) (zs)
 
 --pembatas
 
