@@ -52,9 +52,12 @@ map' (n) (x:xs) = map' (n) [x] ++ map' (n) (xs)
 
 --pembatas
 
-filter' x = x
+filter' (n) [] = []
+filter' (n) (x:xs)
+  | (n x) == True = x : filter' (n) xs
+  | (n x) == False = filter' (n) xs
 
---pembatas 
+--pembatas
 
 delete' n (x:xs)
   | n == x = (xs)
@@ -209,7 +212,13 @@ product' (x:xs) = x * product' (xs)
 -- 4 * product' [] = 4
 --pembatas
 
-words' x = x
+words' "" = []
+words' (x:xs) = [(x:xs)]
+
+-- words' "asdf"
+-- "a" ++ words "sdf"
+-- "s" ++ words "df"
+-- "d" ++ words "f"
 
 --pembatas
 
@@ -222,7 +231,10 @@ unlines' x = x
 
 --pembatas
 
-unwords' x = x
+unwords' [] = ""
+unwords' [""] = ""
+unwords' ["x"] = "x"
+unwords' (x:y) = x ++ "" ++ unwords' y
 
 --pembatas
 
