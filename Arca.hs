@@ -76,11 +76,21 @@ deleteAll' n (x:xs)
 
 --pembatas
 
-foldl' x = x
+foldl'' (m) n [] = n
+foldl'' (m) n [x] = (m) n x
+foldl'' (m) n (x:xs) = (m) x (foldl'' (m) n xs)
+
+-- foldl'' (*) 2 [2,3,4]
+-- foldl'' (*) 2 [3,4]
+-- foldl'' (*) 6 [4]
+-- foldl'' (*) 24 2
+
 
 --pembatas
 
-foldl1' x = x
+foldl1'' (m) [x] = x
+foldl1'' (m) (x:xs) = (m) x (foldl1'' (m) xs)
+
 
 --pembatas
 
@@ -104,11 +114,15 @@ nth' (x:xs) n = nth' (xs) (n-1)
 
 --pembatas
 
-scanl' x = x
+scanl'' (m) n [] = [n]
+scanl'' (m) n (x:xs) = [n] ++ scanl'' (m) ((m) n x) xs
 
 --pembatas
+-- this is my joke :P
 
-scanl1' x = x
+scanl1'' (n) [] =[]
+scanl1'' (n) (x:y:xs) = [x] ++ scanl1' (n) ((n) x y) xs
+  where scanl1' = scanl''
 
 --pembatas
 
@@ -170,7 +184,15 @@ concat' [(x:xs),(y:ys)] = (x:xs) ++ (y:ys)
 
 --pembatas
 
-intersperse' x = x
+intersperse' _ [] = []
+intersperse' _ [x] = [x]
+intersperse' m (x:xs) = x :m:intersperse' m xs
+
+-- intersperse 0 [1..5]
+-- 1 : 0 : intersperse 0 [2..5]
+-- 2 : 0 : intersperse 0 [3..5]
+-- 3 : 0 : intersperse 0 [4,5]
+-- 4 : 0 : intersperse 0 [5]
 
 --pembatas
 
@@ -253,7 +275,8 @@ dropWhile' (n) (x:xs)
 
 --pembatas
 
-concatMap' x = x
+concatMap' (n) [] = []
+concatMap' (n) (x:xs) = (n) x ++ concatMap' (n) xs
 
 --pembatas
 
