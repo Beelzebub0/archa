@@ -239,8 +239,7 @@ product' (x:xs) = x * product' (xs)
 -- 4 * product' [] = 4
 --pembatas
 
-words' "" = []
-words' (x:xs) = [(x:xs)]
+words' x = x
 
 --pembatas
 
@@ -249,7 +248,11 @@ lines' x = x
 
 --pembatas
 
-unlines' x = x
+unlines' [] = ""
+unlines' [""] = ""
+unlines' [x] = x ++ "\n"
+unlines' [x,y] = x ++ "\n" ++ y ++ "\n"
+unlines' (x:y) = x ++ "" ++ unlines' y
 
 --pembatas
 
