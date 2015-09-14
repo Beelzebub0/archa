@@ -59,6 +59,7 @@ filter' (n) (x:xs)
 
 --pembatas
 
+delete' n [] = []
 delete' n (x:xs)
   | n == x = (xs)
   | n /= x = x:delete' n (xs)
@@ -163,8 +164,8 @@ tail' (x:xs) = (xs)
 
 --pembatas
 
-init' [x,y,z] = [x,y]
-init' (x:xs) = x :init' (xs)
+init' [x] = []
+init' (x:xs) = x :init' xs
 
 --pembatas
 
@@ -245,7 +246,6 @@ words' x = x
 
 lines' x = x
 
-
 --pembatas
 
 unlines' [] = ""
@@ -315,19 +315,22 @@ zipWith3' (m) (x:xs) (y:ys) (z:zs) = (m) x y z : zipWith3' (m) (xs) (ys) (zs)
 
 -- 1.b
 
-nub' x = x
+nub' [] = []
+nub' (x:xs) = x : nub' (delete' x (xs))
 
 --pembatas
 
-sort' x = x
+sort' [] = []
 
 --pembatas
 
-minimum' x = x
+minimum' [x] = x
+minimum' (x:xs) = min' x (minimum' xs)
 
 --pembatas
 
-maximum' x = x
+maximum' [x] = x
+maximum' (x:xs) = max' x (maximum' xs)
 
 --pembatas
 
@@ -359,7 +362,8 @@ partition' x = x
 
 --pembatas
 
-replicate' x = x
+replicate' 0 x = []
+replicate' m n = n : replicate' (m-1) n
 
 --pembatas
 -- First Assignment
