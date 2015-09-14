@@ -20,6 +20,7 @@ take' n (x:xs) = x : take' (n-1) xs
 
 --pembatas
 
+drop' _[] = []
 drop' n (x:xs)
    | n == 0 = xs
    | n < 0 = (x:xs)
@@ -316,11 +317,12 @@ zipWith3' (m) (x:xs) (y:ys) (z:zs) = (m) x y z : zipWith3' (m) (xs) (ys) (zs)
 -- 1.b
 
 nub' [] = []
-nub' (x:xs) = x : nub' (delete' x (xs))
+nub' (x:xs) = x : nub' (deleteAll' x (xs))
 
 --pembatas
 
 sort' [] = []
+sort' (x:xs) = minimum' (x:xs) : sort' (delete' (minimum'(x:xs)) (x:xs))
 
 --pembatas
 
@@ -334,11 +336,13 @@ maximum' (x:xs) = max' x (maximum' xs)
 
 --pembatas
 
-inits' x = x
+inits' [] = [[]]
+inits' (x:xs) = inits' (init' (x:xs)) ++ [(x:xs)]
 
 --pembatas
 
-tails' x = x
+tails' [] = [[]]
+tails' (x:xs) = [(x:xs)] ++ tails' (tail' (x:xs))
 
 --pembatas
 
@@ -354,7 +358,8 @@ group' x = x
 
 --pembatas
 
-splitAt' x = x
+splitAt' _[] = ([],[])
+splitAt' n (x:xs) = (take' n (x:xs),drop' n (x:xs))
 
 --pembatas
 
