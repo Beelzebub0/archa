@@ -346,7 +346,8 @@ tails' (x:xs) = [(x:xs)] ++ tails' (tail' (x:xs))
 
 --pembatas
 
-union' x = x
+union' [] [] = []
+union' (x:xs) (y:ys)= nub' ((x:xs) ++ (y:ys))
 
 --pembatas
 
@@ -363,7 +364,10 @@ splitAt' n (x:xs) = (take' n (x:xs),drop' n (x:xs))
 
 --pembatas
 
-partition' x = x
+partition' (m) [] = ([],[])
+partition' (m) (x:xs)
+  | (m x) == False = (takeWhile' (m) (x:xs), reverse' (dropWhile' (m) (reverse(x:xs))))
+  | (m x) == True = (takeWhile' (m) (x:xs), dropWhile' (m) (x:xs))
 
 --pembatas
 
