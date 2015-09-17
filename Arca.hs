@@ -120,7 +120,6 @@ scanl'' (m) n [] = [n]
 scanl'' (m) n (x:xs) = [n] ++ scanl'' (m) ((m) n x) xs
 
 --pembatas
--- this is my joke :P
 
 scanl1'' (n) [] =[]
 scanl1'' (n) (x:y:xs) = [x] ++ scanl1' (n) ((n) x y) xs
@@ -128,15 +127,16 @@ scanl1'' (n) (x:y:xs) = [x] ++ scanl1' (n) ((n) x y) xs
 
 --pembatas
 
-elem' n [x]
+elem' _ [] = False
+elem' n (x:xs)
   | n == x = True
-  | n /= x = False
+  | n /= x = elem' n xs
 
 --pembatas
-
-notElem' n [x]
+notElem' _ [] = True
+notElem' n (x:xs)
   | n == x = False
-  | n /= x = True
+  | n /= x = notElem' n xs
 
 --pembatas
 
@@ -347,15 +347,23 @@ tails' (x:xs) = [(x:xs)] ++ tails' (tail' (x:xs))
 --pembatas
 
 union' [] [] = []
-union' (x:xs) (y:ys)= nub' ((x:xs) ++ (y:ys))
+union' [] (x:xs) = (x:xs)
+union' (x:xs) [] = (x:xs)
+union' (x:xs) (y:ys) =  x :union' (xs) (deleteAll' (x) (nub' (y:ys)))
+
+--pembatas
+-- not yet
+intersect' [] [] = []
+intersect' (x:xs) [] = []
+intersect' [] (y:ys) = []
+intersect' (x:xs) (y:ys)
+  | elem' x (y:ys) == True = x : intersect' (xs) (y:ys)
+  | notElem' x (y:ys) == True = intersect' (xs) (y:ys)
 
 --pembatas
 
-intersect' x = x
-
---pembatas
-
-group' x = x
+group' [] = []
+group' [x] = [[x]]
 
 --pembatas
 
