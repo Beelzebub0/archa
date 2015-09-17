@@ -361,6 +361,7 @@ intersect' (x:xs) (y:ys)
   | notElem' x (y:ys) == True = intersect' (xs) (y:ys)
 
 --pembatas
+-- on progress
 
 group' [] = []
 group' [x] = [[x]]
