@@ -352,7 +352,7 @@ union' (x:xs) [] = (x:xs)
 union' (x:xs) (y:ys) =  x :union' (xs) (deleteAll' (x) (nub' (y:ys)))
 
 --pembatas
--- not yet
+
 intersect' [] [] = []
 intersect' (x:xs) [] = []
 intersect' [] (y:ys) = []
